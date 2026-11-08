@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2bb7d6">
+  <meta name="description" content="Уголок Мати — творчество, интересы, типирования и немного солнечного настроения.">
+  <title>Matya — little corner of the internet</title>
+  <style>
+    :root {
+      --sea: #2bb7d6;
+      --sea-deep: #138aa8;
+      --sponge: #ffe135;
+      --sand: #f4d58d;
+      --coral: #ff7a9c;
+      --lime: #9be15d;
+      --ink: #1a1320;
+      --paper: #fffbe3;
+      --muted: #5a4d63;
+      --line: 4px solid var(--ink);
+      --pop: 6px 6px 0 var(--ink);
+      --head: Impact, "Arial Black", "Haettenschweiler", sans-serif;
+      --body: "Comic Sans MS", "Comic Neue", "Chalkboard SE", "Trebuchet MS", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink); font-family: var(--body); line-height: 1.55;
+      background:
+        radial-gradient(circle at 12% 14%, rgba(255,255,255,.28) 0 2.2rem, transparent 2.3rem),
+        radial-gradient(circle at 88% 38%, rgba(255,255,255,.22) 0 3rem, transparent 3.1rem),
+        radial-gradient(circle at 20% 72%, rgba(255,255,255,.18) 0 1.6rem, transparent 1.7rem),
+        linear-gradient(180deg, #5fd3ec 0%, var(--sea) 45%, var(--sea-deep) 100%);
+      background-attachment: fixed;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible { outline: 4px dashed var(--ink); outline-offset: 3px; }
+    .wrap { width: min(1080px, calc(100% - 32px)); margin: auto; }
+
+    .bubbles { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .bubbles i {
+      position: absolute; bottom: -60px; width: 28px; height: 28px; border-radius: 50%;
+      border: 3px solid rgba(255,255,255,.8); background: rgba(255,255,255,.18);
+      animation: rise 14s linear infinite;
+    }
+    .bubbles i:nth-child(1) { left: 6%;  animation-duration: 15s; }
+    .bubbles i:nth-child(2) { left: 22%; width: 16px; height: 16px; animation-duration: 11s; animation-delay: -4s; }
+    .bubbles i:nth-child(3) { left: 41%; width: 38px; height: 38px; animation-duration: 18s; animation-delay: -9s; }
+    .bubbles i:nth-child(4) { left: 63%; width: 20px; height: 20px; animation-duration: 12s; animation-delay: -2s; }
+    .bubbles i:nth-child(5) { left: 79%; animation-duration: 16s; animation-delay: -7s; }
+    .bubbles i:nth-child(6) { left: 93%; width: 18px; height: 18px; animation-duration: 10s; animation-delay: -5s; }
+    @keyframes rise { to { transform: translateY(-115vh) translateX(26px); } }
+
+    .wrap, footer { position: relative; z-index: 1; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; }
+    .logo {
+      font-family: var(--head); font-size: 1.7rem; letter-spacing: .02em;
+      background: var(--sponge); border: var(--line); border-radius: 14px;
+      padding: 2px 14px; box-shadow: 4px 4px 0 var(--ink); transform: rotate(-2deg);
+    }
+    .logo span { color: var(--coral); -webkit-text-stroke: 1px var(--ink); }
+    nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    nav a {
+      font-weight: 700; padding: 6px 14px; background: var(--paper);
+      border: 3px solid var(--ink); border-radius: 999px; box-shadow: 3px 3px 0 var(--ink);
+      transition: transform .12s, background .12s;
+    }
+    nav a:hover { background: var(--lime); transform: translate(-2px,-2px) rotate(-2deg); }
+
+    /* title card */
+    .hero {
+      position: relative; overflow: hidden; margin: 20px 0 40px; text-align: center;
+      padding: clamp(36px, 7vw, 80px) clamp(18px, 5vw, 60px);
+      border: 6px solid var(--ink); border-radius: 28px; box-shadow: 10px 10px 0 var(--ink);
+      background:
+        repeating-conic-gradient(from 0deg at 50% 62%, #fff27a 0 10deg, var(--sponge) 10deg 20deg);
+    }
+    .hero:before {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 46px;
+      background: var(--sand); border-top: var(--line);
+    }
+    .eyebrow {
+      display: inline-block; padding: 4px 14px; background: var(--coral); color: white;
+      border: 3px solid var(--ink); border-radius: 10px; font-weight: 700;
+      transform: rotate(-3deg); text-shadow: 1px 1px 0 var(--ink);
+    }
+    h1 {
+      position: relative; margin: 14px 0 6px; font-family: var(--head); font-weight: 400;
+      font-size: clamp(3.4rem, 13vw, 8.5rem); line-height: .92; letter-spacing: .01em;
+      color: white; -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill;
+      text-shadow: 6px 6px 0 var(--ink);
+      transform: rotate(-2deg); animation: wobble 3.2s ease-in-out infinite;
+    }
+    @keyframes wobble { 50% { transform: rotate(1.5deg) scale(1.02); } }
+    .hero p {
+      position: relative; max-width: 520px; margin: 14px auto 0; font-size: clamp(1rem, 2vw, 1.2rem);
+      background: var(--paper); border: 3px solid var(--ink); border-radius: 18px; padding: 12px 18px;
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+    .hero-actions { position: relative; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 26px; padding-bottom: 28px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; padding: 11px 22px;
+      font-weight: 700; font-size: 1.05rem; color: white; background: var(--coral);
+      border: 4px solid var(--ink); border-radius: 14px; box-shadow: 5px 5px 0 var(--ink);
+      transition: transform .1s, box-shadow .1s;
+    }
+    .btn:hover { transform: translate(-2px,-2px) rotate(-1.5deg); box-shadow: 8px 8px 0 var(--ink); }
+    .btn:active { transform: translate(4px,4px); box-shadow: 1px 1px 0 var(--ink); }
+    .btn.light { background: var(--paper); color: var(--ink); }
+    .sticker {
+      position: absolute; right: 5%; top: 8%; width: 92px; height: 92px;
+      display: grid; place-items: center; font-size: 2.4rem;
+      background: var(--lime); border: 4px solid var(--ink); border-radius: 50%;
+      box-shadow: 4px 4px 0 var(--ink); transform: rotate(12deg);
+    }
+    .sticker.two { right: auto; left: 4%; top: auto; bottom: 18%; background: var(--coral); transform: rotate(-14deg); width: 76px; height: 76px; font-size: 2rem; }
+
+    section { margin: 60px 0; }
+    .section-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
+    h2 {
+      margin: 0; font-family: var(--head); font-weight: 400; font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--sponge); -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill;
+      text-shadow: 4px 4px 0 var(--ink); transform: rotate(-1.5deg); letter-spacing: .02em;
+    }
+    .section-head p {
+      margin: 0; background: var(--paper); border: 3px solid var(--ink); border-radius: 999px;
+      padding: 3px 14px; font-weight: 700; box-shadow: 3px 3px 0 var(--ink); transform: rotate(1.5deg);
+    }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 22px; }
+    .card {
+      background: var(--paper); border: var(--line); border-radius: 22px; padding: 22px; box-shadow: var(--pop);
+    }
+    .about { grid-column: span 7; transform: rotate(-.6deg); }
+    .typing { grid-column: span 5; background: #ffd3e3; transform: rotate(.8deg); }
+    .wide { grid-column: span 12; background: var(--lime); transform: rotate(-.4deg); }
+    .card h3 { margin: 0 0 8px; font-family: var(--head); font-weight: 400; font-size: 1.6rem; letter-spacing: .02em; }
+    .big-emoji { font-size: 2.2rem; line-height: 1; margin-bottom: 6px; display: inline-block; transform: rotate(-8deg); }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .chip { padding: 4px 12px; border: 3px solid var(--ink); border-radius: 999px; font-weight: 700; background: var(--sponge); }
+    .chip.pink { background: var(--coral); color: white; text-shadow: 1px 1px 0 var(--ink); }
+    .chip.lilac { background: #c9b8ff; }
+    .fandoms { display: flex; flex-wrap: wrap; gap: 12px; }
+    .fandom {
+      padding: 8px 14px; font-weight: 700; background: var(--sponge);
+      border: 3px solid var(--ink); border-radius: 12px; box-shadow: 3px 3px 0 var(--ink);
+    }
+    .fandom:nth-child(2n) { background: #ffb3cb; transform: rotate(1.5deg); }
+    .fandom:nth-child(3n) { background: #bfe9ff; transform: rotate(-1.5deg); }
+    .music-list { display: flex; flex-wrap: wrap; gap: 10px; }
+    .music-list span { background: white; border: 3px solid var(--ink); padding: 6px 14px; border-radius: 10px; font-weight: 700; box-shadow: 3px 3px 0 var(--ink); }
+    .music-list span:nth-child(2n) { background: var(--sponge); }
+    .links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .link-card {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      background: var(--paper); border: var(--line); padding: 14px 18px; border-radius: 18px;
+      font-weight: 700; box-shadow: 5px 5px 0 var(--ink); transition: transform .1s, box-shadow .1s, background .1s;
+    }
+    .link-card:nth-child(3n+1) { transform: rotate(-.7deg); }
+    .link-card:nth-child(3n+2) { transform: rotate(.6deg); }
+    .link-card:hover { background: var(--sponge); transform: translate(-3px,-3px) rotate(-1.5deg); box-shadow: 9px 9px 0 var(--ink); }
+    .link-card small { display: block; color: var(--muted); font-weight: 400; }
+    .arrow { color: var(--coral); font-size: 1.6rem; -webkit-text-stroke: 1px var(--ink); }
+    .note {
+      margin-top: 18px; padding: 12px 16px; border: 3px dashed var(--ink); border-radius: 14px; background: #fff7b0;
+    }
+    footer {
+      text-align: center; margin-top: 70px; padding: 34px 16px 46px; font-weight: 700;
+      background: var(--sand); border-top: 6px solid var(--ink);
+      background-image: radial-gradient(circle, rgba(26,19,32,.18) 2px, transparent 2.5px); background-size: 22px 22px;
+    }
+    footer strong { background: var(--sponge); border: 3px solid var(--ink); padding: 0 8px; border-radius: 8px; }
+    footer span { color: var(--muted); font-weight: 400; }
+    @media (max-width: 720px) {
+      .topbar { align-items: flex-start; flex-direction: column; }
+      nav { justify-content: flex-start; }
+      .about, .typing, .wide { grid-column: span 12; }
+      .sticker { width: 64px; height: 64px; font-size: 1.7rem; top: 3%; }
+      .sticker.two { display: none; }
+      .links { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      h1, .bubbles i { animation: none; }
+    }
+
+    /* курсор-пузырёк */
+    body, a, .btn { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='15' cy='15' r='11' fill='%23bff3ff' fill-opacity='.7' stroke='%231a1320' stroke-width='3'/%3E%3Ccircle cx='11' cy='11' r='3' fill='white'/%3E%3C/svg%3E") 15 15, auto; }
+    a, .btn, .link-card { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Crect x='6' y='6' width='24' height='24' rx='5' fill='%23ffe135' stroke='%231a1320' stroke-width='3' transform='rotate(-8 18 18)'/%3E%3Ccircle cx='13' cy='14' r='2' fill='%231a1320'/%3E%3Ccircle cx='22' cy='13' r='2' fill='%231a1320'/%3E%3Cpath d='M12 21q6 5 12 0' fill='none' stroke='%231a1320' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") 18 18, pointer; }
+
+    /* вывеска вместо логотипа */
+    .logo {
+      position: relative; display: inline-block; margin-top: 26px; padding: 6px 22px 8px;
+      font-family: var(--head); font-size: 1.6rem; letter-spacing: .04em; color: #fff;
+      background: linear-gradient(180deg, #ff9a3c 0 50%, #f26a21 50% 100%);
+      border: 4px solid var(--ink); border-radius: 12px; box-shadow: 5px 5px 0 var(--ink);
+      text-shadow: 2px 2px 0 var(--ink); transform-origin: 50% -26px; animation: sway 4s ease-in-out infinite;
+    }
+    .logo:before, .logo:after {
+      content: ""; position: absolute; top: -28px; width: 4px; height: 26px; background: var(--ink);
+    }
+    .logo:before { left: 22px; } .logo:after { right: 22px; }
+    .logo span { color: var(--sponge); -webkit-text-stroke: 0; }
+    @keyframes sway { 0%,100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg); } }
+
+    .pop-ring {
+      position: fixed; width: 20px; height: 20px; border: 3px solid white; border-radius: 50%;
+      pointer-events: none; z-index: 5; transform: translate(-50%,-50%); animation: ring .45s ease-out forwards;
+    }
+    @keyframes ring { to { width: 70px; height: 70px; opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { .logo { animation: none; } }
+
+    /* плавающие кнопки */
+    .fab-stack { position: fixed; right: 16px; bottom: 16px; z-index: 20; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+    .fab {
+      width: 58px; height: 58px; display: grid; place-items: center; font-size: 1.6rem; line-height: 1;
+      font-family: var(--head); color: var(--ink); background: var(--sponge);
+      border: 4px solid var(--ink); border-radius: 50%; box-shadow: 4px 4px 0 var(--ink);
+      transition: transform .1s, box-shadow .1s, opacity .2s;
+    }
+    .fab:hover { transform: translate(-2px,-2px) rotate(-6deg); box-shadow: 7px 7px 0 var(--ink); }
+    .fab:active { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--ink); }
+    .fab:focus-visible { outline: 4px dashed var(--ink); outline-offset: 3px; }
+    #toTop { background: var(--lime); opacity: 0; pointer-events: none; }
+    #toTop.show { opacity: 1; pointer-events: auto; }
+    #musicBtn.on { background: var(--coral); animation: beat .6s ease-in-out infinite; }
+    @keyframes beat { 50% { transform: scale(1.1) rotate(-6deg); } }
+    .toast {
+      max-width: 260px; padding: 8px 14px; font-weight: 700; font-size: .9rem; background: var(--paper);
+      border: 3px solid var(--ink); border-radius: 14px; box-shadow: 3px 3px 0 var(--ink);
+      opacity: 0; transform: translateY(8px); transition: .25s; pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { #musicBtn.on { animation: none; } }
+  </style>
+</head>
+<body>
+  <audio id="bgm" preload="none" src="spongebob.mp3"></audio>
+  <div id="ytHolder" style="position:fixed;left:-9999px;top:0;width:200px;height:200px" aria-hidden="true"><div id="ytPlayer"></div></div>
+  <div class="fab-stack">
+    <div class="toast" id="toast" role="status"></div>
+    <button class="fab" id="toTop" type="button" aria-label="Наверх" title="Наверх">▲</button>
+    <button class="fab" id="musicBtn" type="button" aria-label="Включить музыку" aria-pressed="false" title="Музыка">🎵</button>
+  </div>
+  <div class="bubbles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="logo" href="#home">matya<span>✦</span>world</a>
+      <nav aria-label="Навигация">
+        <a href="#about">Обо мне</a>
+        <a href="#interests">Интересы</a>
+        <a href="#music">Музыка</a>
+        <a href="#links">Ссылки</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <span class="eyebrow">a little corner of the internet</span>
+        <h1>Hi, I'm<br>Matya!</h1>
+        <p>Рада видеть тебя в своём маленьком уголке интернета ☀️
+          Здесь немного обо мне, моих увлечениях, творчестве и любимых вещах.</p>
+        <div class="hero-actions">
+          <a class="btn" href="https://t.me/q1o07" target="_blank" rel="noopener">Заглянуть в мой канал ↗</a>
+          <a class="btn light" href="#about">Узнать обо мне</a>
+        </div>
+        <div class="sticker" aria-hidden="true">🧽</div>
+        <div class="sticker two" aria-hidden="true">🫧</div>
+      </section>
+
+      <section id="about">
+        <div class="section-head">
+          <h2>Немного обо мне</h2>
+          <p>приятно познакомиться! 🫧</p>
+        </div>
+        <div class="grid">
+          <article class="card about">
+            <div class="big-emoji">🎨</div>
+            <h3>Творчество — моя стихия</h3>
+            <p>Я художница, люблю рисовать, собирать стикеры, придумывать дизайны
+              и радовать людей. В будущем хочу попробовать себя в озвучке!</p>
+            <div class="chips">
+              <span class="chip">artist</span>
+              <span class="chip pink">future voice actor</span>
+              <span class="chip lilac">sticker collector</span>
+            </div>
+          </article>
+          <article class="card typing">
+            <div class="big-emoji">🧩</div>
+            <h3>Типирования</h3>
+            <p>Немного моих типирований — для тех, кому тоже интересно разбираться
+              в характерах и системах.</p>
+            <div class="chips">
+              <span class="chip pink">NTP</span>
+              <span class="chip">729</span>
+              <span class="chip lilac">7w6 · 2w3 · 9w8</span>
+              <span class="chip pink">Neutral Good</span>
+              <span class="chip">Sanguine</span>
+              <span class="chip lilac">Deredere</span>
+            </div>
+            <p><small>Коды приведены так, как указаны в анкете.</small></p>
+          </article>
+          <article class="card wide">
+            <div class="big-emoji">💬</div>
+            <h3>Маленькое напоминание</h3>
+            <p>Стараюсь видеть в людях хорошее и делиться солнечным настроением.
+              Будь собой и не бойся творить!</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="interests">
+        <div class="section-head">
+          <h2>Мои интересы</h2>
+          <p>много всего интересного!</p>
+        </div>
+        <div class="card">
+          <h3>Фандомы</h3>
+          <div class="fandoms">
+            <span class="fandom">SpongeBob SquarePants</span>
+            <span class="fandom">Aqua Teen Hunger Force</span>
+            <span class="fandom">Smiling Friends</span>
+            <span class="fandom">Wander Over Yonder</span>
+            <span class="fandom">Eddsworld</span>
+            <span class="fandom">Pizza Tower</span>
+            <span class="fandom">Tankmen</span>
+          </div>
+          <div class="note">☀️🫧 Люблю открывать для себя новые фандомы — возможно, у нас найдётся что-то общее!</div>
+        </div>
+      </section>
+
+      <section id="music">
+        <div class="section-head">
+          <h2>Что слушаю</h2>
+          <p>bubblegum pop mood 🍬</p>
+        </div>
+        <div class="card">
+          <h3>Любимые исполнители</h3>
+          <div class="music-list">
+            <span>Toy-Box</span><span>Smash Mouth</span><span>The Cardigans</span>
+            <span>IOSYS</span><span>Lemon Demon</span><span>Rip Slyme</span>
+          </div>
+          <p style="margin:18px 0 0;color:var(--muted)">У каждого свой музыкальный вкус — и это здорово.</p>
+        </div>
+      </section>
+
+      <section id="links">
+        <div class="section-head">
+          <h2>Найди меня здесь</h2>
+          <p>заходи, подписывайся и пиши 💗</p>
+        </div>
+        <div class="links">
+          <a class="link-card" href="https://t.me/q1o07" target="_blank" rel="noopener">
+            <span>📢 Telegram — основной канал<small>посты, информация и обновления</small></span><span class="arrow">↗</span>
+          </a>
+          <a class="link-card" href="https://t.me/spongematya" target="_blank" rel="noopener">
+            <span>🖍️ Рисунки и посты<small>мой творческий уголок</small></span><span class="arrow">↗</span>
+          </a>
+          <a class="link-card" href="https://www.tiktok.com/@07qmw?_r=1&_t=ZS-98FTN6vPJlU" target="_blank" rel="noopener">
+            <span>🎬 TikTok<small>короткие видео</small></span><span class="arrow">↗</span>
+          </a>
+          <a class="link-card" href="https://open.spotify.com/playlist/0v5Yy4OYbryG2eOCccp1Wx?si=h7liH_IMRx-udq-SAiTJcg&pi=2VlOK_nyT86NM" target="_blank" rel="noopener">
+            <span>🎧 Мой плейлист<small>музыка, которая мне нравится</small></span><span class="arrow">↗</span>
+          </a>
+          <a class="link-card" href="https://matyasquarepants.straw.page/" target="_blank" rel="noopener">
+            <span>🌐 Strawpage<small>ещё одна моя страничка</small></span><span class="arrow">↗</span>
+          </a>
+          <a class="link-card" href="https://t.me/anonaskbot?start=5dV_GzXwh_0KYQ" target="_blank" rel="noopener">
+            <span>💌 Анонимные вопросы<small>можно оставить сообщение</small></span><span class="arrow">↗</span>
+          </a>
+          <a class="link-card" href="https://t.me/+zBi4pns6igBiYjEy" target="_blank" rel="noopener">
+            <span>🌪️ Линия безумия Мати<small>заглянуть в Telegram-группу</small></span><span class="arrow">↗</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Сделано с ☀️ и 💗 для <strong>Matya</strong><br>
+      <span>маленький сайт, большое настроение</span>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var ctx;
+      function blub() {
+        try {
+          ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+          var o = ctx.createOscillator(), g = ctx.createGain(), t = ctx.currentTime;
+          o.type = 'sine';
+          o.frequency.setValueAtTime(260, t);
+          o.frequency.exponentialRampToValueAtTime(900, t + 0.09);
+          g.gain.setValueAtTime(0.0001, t);
+          g.gain.exponentialRampToValueAtTime(0.18, t + 0.015);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+          o.connect(g); g.connect(ctx.destination);
+          o.start(t); o.stop(t + 0.15);
+        } catch (e) {}
+      }
+      document.addEventListener('click', function (e) {
+        var ring = document.createElement('span');
+        ring.className = 'pop-ring';
+        ring.style.left = e.clientX + 'px';
+        ring.style.top = e.clientY + 'px';
+        document.body.appendChild(ring);
+        setTimeout(function () { ring.remove(); }, 500);
+        if (e.target.closest('a')) blub();
+      });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('musicBtn'), top = document.getElementById('toTop'),
+          toast = document.getElementById('toast'),
+          playing = false, synth = false, timer, step = 0, actx, tt;
+      var audio = document.getElementById('bgm'), localOk = false;
+      audio.volume = 0.35;
+      audio.addEventListener('loadedmetadata', function () { audio.currentTime = START; });
+      audio.addEventListener('ended', function () { audio.currentTime = START; audio.play(); });
+      var VIDEO = 'Ew3QCTUIjrM', START = 10, yt = null, ytReady = false, ytLoading = false, wantPlay = false, guard;
+
+      function say(t) {
+        toast.textContent = t; toast.classList.add('show');
+        clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('show'); }, 4500);
+      }
+      function setUI(on) {
+        playing = on; btn.classList.toggle('on', on);
+        btn.textContent = on ? '🔇' : '🎵';
+        btn.setAttribute('aria-pressed', on); btn.setAttribute('aria-label', on ? 'Выключить музыку' : 'Включить музыку');
+      }
+
+      /* запасная мелодия: короткий весёлый «морской» цикл, написан с нуля */
+      var melody = [523,0,659,784,659,0,523,0, 587,0,698,880,698,0,587,0,
+                    523,659,784,1047,784,659,523,0, 392,0,494,587,523,0,0,0];
+      var bass = [131,0,196,0, 147,0,220,0, 131,0,196,0, 98,0,196,0];
+      function tone(f, t, dur, type, vol) {
+        var o = actx.createOscillator(), g = actx.createGain();
+        o.type = type; o.frequency.value = f;
+        g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + dur);
+      }
+      function tick() {
+        var t = actx.currentTime + 0.02, m = melody[step % melody.length], b = bass[(step >> 1) % bass.length];
+        if (m) tone(m, t, 0.22, 'triangle', 0.09);
+        if (b && step % 2 === 0) tone(b, t, 0.3, 'sine', 0.12);
+        step++;
+      }
+      function startSynth() {
+        actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+        if (actx.state === 'suspended') actx.resume();
+        synth = true; timer = setInterval(tick, 190);
+      }
+      function stopAll() {
+        wantPlay = false; clearTimeout(guard); clearInterval(timer); synth = false;
+        if (yt && ytReady) yt.pauseVideo();
+        audio.pause();
+      }
+      function fallback(msg) {
+        if (synth || !wantPlay) return;
+        clearTimeout(guard); startSynth(); say(msg);
+      }
+      function loadYT() {
+        if (ytLoading) return; ytLoading = true;
+        window.onYouTubeIframeAPIReady = function () {
+          yt = new YT.Player('ytPlayer', {
+            videoId: VIDEO, width: 200, height: 200,
+            playerVars: { start: START, controls: 0, playsinline: 1, rel: 0, disablekb: 1 },
+            events: {
+              onReady: function () { ytReady = true; yt.setVolume(35); if (wantPlay) yt.playVideo(); },
+              onStateChange: function (e) {
+                if (e.data === YT.PlayerState.PLAYING) clearTimeout(guard);
+                if (e.data === YT.PlayerState.ENDED) { yt.seekTo(START, true); yt.playVideo(); }
+              },
+              onError: function () { fallback('Видео не открылось (YouTube запретил встраивание или сайт открыт как файл) — играет встроенная мелодия.'); }
+            }
+          });
+        };
+        var sc = document.createElement('script');
+        sc.src = 'https://www.youtube.com/iframe_api';
+        sc.onerror = function () { fallback('Нет доступа к YouTube — играет встроенная мелодия. Положи spongebob.mp3 рядом с сайтом.'); };
+        document.head.appendChild(sc);
+      }
+
+      btn.addEventListener('click', function () {
+        if (playing) { stopAll(); setUI(false); return; }
+        setUI(true); wantPlay = true;
+        if (localOk) { audio.play(); return; }
+        audio.play().then(function () { localOk = true; }).catch(function () {
+          if (!wantPlay) return;
+          guard = setTimeout(function () { fallback('Нет mp3 и нет доступа к YouTube — играет встроенная мелодия. Положи spongebob.mp3 рядом с сайтом.'); }, 7000);
+          if (yt && ytReady) yt.playVideo(); else loadYT();
+        });
+      });
+
+      function onScroll() { top.classList.toggle('show', window.scrollY > 300); }
+      window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+      top.addEventListener('click', function () {
+        var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: calm ? 'auto' : 'smooth' });
+      });
+    })();
+  </script>
+</body>
+</html>
